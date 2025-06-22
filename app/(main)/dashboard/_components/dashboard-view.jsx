@@ -1,13 +1,17 @@
 "use client"
-import { Brain, BriefcaseIcon, LineChart, TrendingDown, TrendingUp } from 'lucide-react';
+import { Brain, BriefcaseIcon, LineChart, Pencil, TrendingDown, TrendingUp } from 'lucide-react';
 import React from 'react'
 import {format, formatDistanceToNow} from "date-fns";
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Button } from '@/components/ui/button';
+import { redirect, useRouter } from 'next/navigation';
+import { editprefernces } from '@/actions/dashboard';
 
 const DashboardView = ({insights}) => {
+   const router = useRouter();
     const salaryData = insights.salaryRanges.map((range) => ({
         name: range.role,
         min: range.min / 1000,
@@ -51,6 +55,10 @@ const DashboardView = ({insights}) => {
     <div className='space-y-6'>
        <div className='flex justify-between items-center'>
         <Badge variant="outline">Last updated: {lastUpdatedDate}</Badge>
+        <Button variant="outline" size="sm" onClick={() => editprefernces()}>
+        <Pencil className="w-4 h-4 mr-2" />
+        Edit Preferences
+      </Button>
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
